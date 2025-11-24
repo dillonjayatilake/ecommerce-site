@@ -31,3 +31,4 @@ export async function getCategoryBySlug(slug: string): Promise<Category | null> 
     return null;
   }
 }
+
