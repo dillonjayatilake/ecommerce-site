@@ -1,6 +1,8 @@
-import { getCategoryBySlug, getProductsByCategory, getCategories } from '@/lib/db';
+import { getCategoryBySlug, getCategories } from '@/lib/categories-service'; // Changed import
+import {  getProductsByCategory } from '@/lib/products-service'; 
 import { notFound } from 'next/navigation';
 import ProductGrid from '@/components/product/ProductGrid';
+import Link from 'next/link'; // Added Link import
 
 interface CategoryPageProps {
   params: Promise<{
@@ -9,9 +11,8 @@ interface CategoryPageProps {
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
-    //Await params
-    const { slug } = await params;
-
+  // Await params
+  const { slug } = await params;
 
   const [category, products, categories] = await Promise.all([
     getCategoryBySlug(slug),
@@ -32,17 +33,17 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             <h2 className="text-xl font-semibold mb-4">Categories</h2>
             <div className="space-y-2">
               {categories.map((cat) => (
-                <a
+                <Link // Changed from <a> to <Link>
                   key={cat.id}
                   href={`/categories/${cat.slug}`}
                   className={`block py-2 px-3 rounded-lg transition-colors ${
-                    cat.slug === params.slug
+                    cat.slug === slug // Changed from params.slug to slug
                       ? 'bg-blue-50 text-blue-600 font-semibold'
                       : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
                   }`}
                 >
                   {cat.name}
-                </a>
+                </Link> // Changed from </a> to </Link>
               ))}
             </div>
           </div>
@@ -70,5 +71,3 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     </div>
   );
 }
-
-// Remove generateStaticParams function entirely
