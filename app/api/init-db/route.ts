@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
-import { initializeDatabase, seedDatabase } from '@/lib/database';
+import { seedDatabase } from '@/lib/seed-data';
+import { initializeDatabase } from '@/lib/db';
+
 
 export async function GET() {
   try {
