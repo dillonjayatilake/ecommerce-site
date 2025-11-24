@@ -1,10 +1,11 @@
-import { getProducts, getCategories } from '@/lib/db';
+import { getFeaturedProducts } from '@/lib/products-service';
+import { getCategories } from '@/lib/categories-service';
 import ProductGrid from '@/components/product/ProductGrid';
 import Link from 'next/link';
 
 export default async function ProductsPage() {
   const [products, categories] = await Promise.all([
-    getProducts(),
+    getFeaturedProducts(),
     getCategories()
   ]);
 

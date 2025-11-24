@@ -1,10 +1,11 @@
-import { getCategories, getProducts } from '@/lib/db';
+import { getFeaturedProducts } from '@/lib/products-service';
+import { getCategories } from '@/lib/categories-service';
 import Link from 'next/link';
 
 export default async function CategoriesPage() {
   const [categories, products] = await Promise.all([
     getCategories(),
-    getProducts()
+    getFeaturedProducts()
   ]);
 
   // Count products per category
