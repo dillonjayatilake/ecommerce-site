@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document, model } from 'mongoose';
 
 export interface IProduct extends Document {
   name: string;
@@ -26,4 +26,6 @@ const ProductSchema: Schema = new Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
-export default mongoose.models.Product || mongoose.model<IProduct>('Product', ProductSchema);
+// FIX: Remove the models check and always create the model
+const Product = model<IProduct>('Product', ProductSchema);
+export default Product;
