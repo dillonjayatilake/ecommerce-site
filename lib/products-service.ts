@@ -1,6 +1,7 @@
 import { sql } from '@vercel/postgres';
+import { Product } from '@/types';
 
-export interface Product {
+interface DbProduct {
   id: number;
   name: string;
   description: string;
@@ -15,6 +16,23 @@ export interface Product {
   created_at: string;
 }
 
+const mapDbProductToProduct = (dbProduct: DbProduct): Product => ({
+  id: dbProduct.id.toString(),
+  name: dbProduct.name,
+  description: dbProduct.description,
+  price: Number(dbProduct.price),
+  originalPrice: dbProduct.original_price ?? undefined,
+  images: [], // No image column yet, provide empty placeholder
+  category: dbProduct.category_slug ?? 'uncategorized',
+  categoryId: dbProduct.category_id,
+  categorySlug: dbProduct.category_slug,
+  categoryName: dbProduct.category_name,
+  inventory: dbProduct.inventory,
+  featured: dbProduct.featured,
+  slug: dbProduct.slug,
+  createdAt: dbProduct.created_at,
+});
+
 export async function getProducts(): Promise<Product[]> {
   try {
     const { rows } = await sql`
@@ -26,7 +44,7 @@ export async function getProducts(): Promise<Product[]> {
       LEFT JOIN categories c ON p.category_id = c.id
       ORDER BY p.created_at DESC
     `;
-    return rows as Product[];
+    return rows.map(mapDbProductToProduct);
   } catch (error) {
     console.error('Error fetching products:', error);
     return [];
@@ -44,7 +62,8 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
       LEFT JOIN categories c ON p.category_id = c.id
       WHERE p.slug = ${slug}
     `;
-    return rows[0] as Product || null;
+    const product = rows[0] as DbProduct | undefined;
+    return product ? mapDbProductToProduct(product) : null;
   } catch (error) {
     console.error('Error fetching product:', error);
     return null;
@@ -64,7 +83,7 @@ export async function getFeaturedProducts(): Promise<Product[]> {
       ORDER BY p.created_at DESC
       LIMIT 6
     `;
-    return rows as Product[];
+    return rows.map(mapDbProductToProduct);
   } catch (error) {
     console.error('Error fetching featured products:', error);
     return [];
@@ -83,7 +102,7 @@ export async function getProductsByCategory(categorySlug: string): Promise<Produ
       WHERE c.slug = ${categorySlug}
       ORDER BY p.created_at DESC
     `;
-    return rows as Product[];
+    return rows.map(mapDbProductToProduct);
   } catch (error) {
     console.error('Error fetching products by category:', error);
     return [];

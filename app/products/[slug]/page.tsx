@@ -24,7 +24,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const allProducts = await getProducts();
   // Filter related products (products from same category, excluding current product)
   const relatedProducts = allProducts.filter(p => 
-    p.category_id === product.category_id && p.id !== product.id
+    p.categoryId === product.categoryId && p.id !== product.id
   ).slice(0, 4);
 
   return (
@@ -64,12 +64,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
           <div className="flex items-center space-x-4">
             <span className="text-4xl font-bold text-gray-800">${product.price}</span>
-            {product.original_price && product.original_price > product.price && (
-              <span className="text-2xl text-gray-500 line-through">${product.original_price}</span>
+            {product.originalPrice && product.originalPrice > product.price && (
+              <span className="text-2xl text-gray-500 line-through">${product.originalPrice}</span>
             )}
-            {product.original_price && product.original_price > product.price && (
+            {product.originalPrice && product.originalPrice > product.price && (
               <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                Save ${(product.original_price - product.price).toFixed(2)}
+                Save ${(product.originalPrice - product.price).toFixed(2)}
               </span>
             )}
           </div>
@@ -106,10 +106,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <p className="text-gray-600">
               Category:{' '}
               <Link 
-                href={`/categories/${product.category_slug}`}
+                href={product.categorySlug ? `/categories/${product.categorySlug}` : '/categories'}
                 className="text-blue-600 hover:text-blue-700 font-medium"
               >
-                {product.category_name}
+                {product.categoryName ?? 'Uncategorized'}
               </Link>
             </p>
           </div>
