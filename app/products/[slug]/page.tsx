@@ -1,4 +1,4 @@
-import { getProductBySlug, getProducts } from '@/lib/products-service';
+import { getProductBySlug, getProducts } from '@/lib/products-service-mongo';
 import { notFound } from 'next/navigation';
 import ProductImages from '@/components/product/ProductImages';
 import AddToCart from '@/components/cart/AddToCart';

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getProducts } from '@/lib/products-service';
+import { getProducts } from '@/lib/products-service-mongo';
 
 export async function GET() {
   try {

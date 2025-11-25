@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getProductBySlug } from '@/lib/products-service';
+import { getProductBySlug } from '@/lib/products-service-mongo';
 
 interface Context {
   params: Promise<{

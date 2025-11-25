@@ -6,13 +6,18 @@ export interface Product {
   originalPrice?: number;
   images: string[];
   category: string;
-  categoryId?: number;
-  categorySlug?: string;
-  categoryName?: string;
   inventory: number;
   featured: boolean;
   slug: string;
-  createdAt?: string;
+  createdAt: Date;
+}
+
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string;
+  createdAt?: Date;
 }
 
 export interface CartItem {

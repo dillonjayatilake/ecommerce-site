@@ -1,5 +1,5 @@
-import { getProducts } from '@/lib/products-service'; // Changed from getFeaturedProducts
-import { getCategories } from '@/lib/categories-service';
+import { getProducts } from '@/lib/products-service-mongo'; // Changed from getFeaturedProducts
+import { getCategories } from '@/lib/categories-service-mongo';
 import ProductGrid from '@/components/product/ProductGrid';
 import Link from 'next/link';
 

@@ -1,5 +1,5 @@
-import { getFeaturedProducts } from '@/lib/products-service';
-import { getCategories } from '@/lib/categories-service';
+import { getFeaturedProducts } from '@/lib/products-service-mongo';
+import { getCategories } from '@/lib/categories-service-mongo';
 import Link from 'next/link';
 
 export default async function CategoriesPage() {

@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { getFeaturedProducts } from '@/lib/products-service';
-import { getCategories } from '@/lib/categories-service';
+import { getFeaturedProducts } from '@/lib/products-service-mongo';
+import { getCategories } from '@/lib/categories-service-mongo';
 import ProductGrid from '@/components/product/ProductGrid';
 
 export default async function Home() {

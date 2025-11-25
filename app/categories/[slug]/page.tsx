@@ -1,5 +1,5 @@
-import { getCategoryBySlug, getCategories } from '@/lib/categories-service'; // Changed import
-import {  getProductsByCategory } from '@/lib/products-service'; 
+import { getCategoryBySlug, getCategories } from '@/lib/categories-service-mongo'; // Changed import
+import {  getProductsByCategory } from '@/lib/products-service-mongo'; 
 import { notFound } from 'next/navigation';
 import ProductGrid from '@/components/product/ProductGrid';
 import Link from 'next/link'; // Added Link import
